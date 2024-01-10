@@ -47,13 +47,13 @@ pipeline{
                         sh "echo 'Java Build"
                     }
                 }
-                stage("Tomcat Build") {
+                stage("Apache Build") {
                     when { expression { params.DEPLOY_TO == "Apache" } }
                     steps {
                         sh "echo 'Apache Build'"
                     }
                 }
-                stage("Tomcat") {
+                stage("Tomcat Build") {
                     when { expression { params.DEPLOY_TO == "Tomcat" } }
                     steps {
                         sh "echo 'Tomcat Build'"
