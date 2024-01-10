@@ -42,19 +42,19 @@ pipeline{
         stage("Performing Build") {
             parallel {
                 stage("Java Build") {
-                    when { expression { params.DEPLOY_TO == "Java" } }
+                    when { expression { params.component_type == "Java" } }
                     steps {
                         sh "echo 'Java Build"
                     }
                 }
                 stage("Apache Build") {
-                    when { expression { params.DEPLOY_TO == "Apache" } }
+                    when { expression { params.component_type == "Apache" } }
                     steps {
                         sh "echo 'Apache Build'"
                     }
                 }
                 stage("Tomcat Build") {
-                    when { expression { params.DEPLOY_TO == "Tomcat" } }
+                    when { expression { params.component_type == "Tomcat" } }
                     steps {
                         sh "echo 'Tomcat Build'"
                     }
