@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     environment {
-        componentType = "java"
+        componentType = "Apache"
     }
 
     options {
