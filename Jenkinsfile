@@ -60,7 +60,7 @@ pipeline{
                      }
 
                     steps {
-                        sh "echo Tomcat'"
+                        sh "echo 'Tomcat'"
                     }
                 }
             }
