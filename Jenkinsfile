@@ -44,7 +44,7 @@ pipeline{
                 stage("Java Build") {
                     when { expression { params.component_type == "Java" } }
                     steps {
-                        sh "echo 'Java Build"
+                        sh "echo 'Java Build'"
                     }
                 }
                 stage("Apache Build") {
