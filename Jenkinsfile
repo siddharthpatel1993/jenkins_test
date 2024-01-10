@@ -30,7 +30,7 @@ pipeline{
             steps {
                 script {
                         sh "set fileformat=unix"
-                        sh "echo 'Performing Build'"
+                        sh "echo 'Performing ${APP_NAME} Build'"
                 }
             }
         }
