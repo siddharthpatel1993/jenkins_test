@@ -30,7 +30,7 @@ pipeline{
             steps {
                 script {
                         sh "set fileformat=unix"
-                        sh "echo 'Performing' ${componentType} 'Build'"
+                        #sh "echo 'Performing' ${componentType} 'Build'"
                 }
             }
         }
