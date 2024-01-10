@@ -3,7 +3,7 @@ pipeline{
 
     environment {
         APP_NAME = "DCUBE_APP"
-        APP_ENV  = "DEV"
+        APP_ENV  = "Java"
     }
 
     options {
@@ -12,6 +12,7 @@ pipeline{
                     numToKeepStr: '1'
             )
     }
+
 
     stages{
         stage("Cleanup Workspace"){
@@ -31,6 +32,29 @@ pipeline{
                 script {
                         sh "set fileformat=unix"
                         sh "echo 'Performing ${APP_NAME} Build'"
+                }
+            }
+        }
+
+        stage("Test") {
+            parallel {
+                stage("Java Execution") {
+                    when { expression { ${APP_ENV} == "Java" } }
+                    steps {
+                        sh "echo 'Java'"
+                    }
+                }
+                stage("PRE") {
+                    when { expression { params.DEPLOY_TO == "PRE" } }
+                    steps {
+                        sh "./deploy.sh pre"
+                    }
+                }
+                stage("PROD") {
+                    when { expression { params.DEPLOY_TO == "PROD" } }
+                    steps {
+                        sh "./deploy.sh prod"
+                    }
                 }
             }
         }
