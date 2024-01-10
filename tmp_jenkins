@@ -12,10 +12,6 @@ pipeline{
             )
     }
 
-    parameters {
-        //booleanParam(name: "RELEASE", defaultValue: false)
-        choice(name: "component_type", choices: ["Java", "Apache", "Tomcat"])
-    }
 
     stages{
         stage("Cleanup Workspace"){
@@ -41,22 +37,30 @@ pipeline{
 
         stage("Performing Build") {
             parallel {
-                stage("Java Build") {
-                    when { expression { params.DEPLOY_TO == "Java" } }
+                stage("Java Execution") {
+                     when {
+                      environment(name: "componentType", value: "Java")
+                     }   
                     steps {
-                        sh "echo 'Java Build"
+                        sh "echo 'Java'"
                     }
                 }
-                stage("Tomcat Build") {
-                    when { expression { params.DEPLOY_TO == "Apache" } }
+                stage("Apache Execution") {
+                     when {
+                      environment(name: "componentType", value: "Apache")
+                     }
+
                     steps {
-                        sh "echo 'Apache Build'"
+                        sh "echo 'Apache'"
                     }
                 }
-                stage("Tomcat") {
-                    when { expression { params.DEPLOY_TO == "Tomcat" } }
+                stage("Tomcat Execution") {
+                     when {
+                      environment(name: "componentType", value: "Tomcat")
+                     }
+
                     steps {
-                        sh "echo 'Tomcat Build'"
+                        sh "echo 'Tomcat'"
                     }
                 }
             }
