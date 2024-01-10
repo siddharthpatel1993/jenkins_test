@@ -2,8 +2,7 @@ pipeline{
     agent any
 
     environment {
-        APP_NAME = "DCUBE_APP"
-        APP_ENV  = "Java"
+        componentType = "java"
     }
 
     options {
@@ -40,28 +39,28 @@ pipeline{
             parallel {
                 stage("Java Execution") {
                      when {
-                      environment(name: "APP_ENV", value: "Java")
+                      environment(name: "componentType", value: "Java")
                      }   
                     steps {
                         sh "echo 'Java'"
                     }
                 }
-                stage("PRE") {
+                stage("Apache Execution") {
                      when {
-                      environment(name: "APP_ENV", value: "Java1")
+                      environment(name: "componentType", value: "Apache")
                      }
 
                     steps {
-                        sh "./deploy.sh pre"
+                        sh "echo 'Apache'"
                     }
                 }
-                stage("PROD") {
+                stage("Tomcat Execution") {
                      when {
-                      environment(name: "APP_ENV", value: "Java2")
+                      environment(name: "componentType", value: "Tomcat")
                      }
 
                     steps {
-                        sh "./deploy.sh prod"
+                        sh "echo Tomcat'"
                     }
                 }
             }
