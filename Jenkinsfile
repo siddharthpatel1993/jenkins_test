@@ -39,19 +39,27 @@ pipeline{
         stage("Test") {
             parallel {
                 stage("Java Execution") {
-                    when { env.APP_ENV == "Java" }
+                     when {
+                      environment(name: "APP_ENV", value: "Java")
+                     }   
                     steps {
                         sh "echo 'Java'"
                     }
                 }
                 stage("PRE") {
-                    when { env.APP_ENV == "PRE" }
+                     when {
+                      environment(name: "APP_ENV", value: "Java1")
+                     }
+
                     steps {
                         sh "./deploy.sh pre"
                     }
                 }
                 stage("PROD") {
-                    when { env.APP_ENV == "PROD" }
+                     when {
+                      environment(name: "APP_ENV", value: "Java2")
+                     }
+
                     steps {
                         sh "./deploy.sh prod"
                     }
