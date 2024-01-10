@@ -30,12 +30,12 @@ pipeline{
             steps {
                 script {
                         sh "set fileformat=unix"
-                        sh "echo 'Performing ${APP_NAME} Build'"
+                        sh "echo 'Performing ${componentType} Build'"
                 }
             }
         }
 
-        stage("Test") {
+        stage("Performing Build") {
             parallel {
                 stage("Java Execution") {
                      when {
