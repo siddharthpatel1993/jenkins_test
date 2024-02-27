@@ -1,11 +1,27 @@
 pipeline {
-  agent any
-  stages {
-    stage('Welcome Step') {
-      steps {
-         echo 'Welcome to Siddworld'
-      }
+    agent {
+        node {
+            label 'jenkinsagent'
+        }      
     }
-  }
+	
+    environment {
+        START_PIPELINE = 'NO'  // YES or NO
+        NEWTAG = ''
+    }
+	
+    stages {
+        stage('Generate Tag') {
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+            steps {
+                script {
+                    sh 'mkdir GENERATE-TAG'
+                    sh 'cd GENERATE-TAG'
+					sh 'pwd'
+                }
+            }
+        } 
+    }
 }
-     
