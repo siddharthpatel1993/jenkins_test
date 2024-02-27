@@ -6,7 +6,7 @@ pipeline {
     }
 	
     environment {
-        START_PIPELINE = 'NO'  // YES or NO
+        START_PIPELINE = 'Yes'  // YES or NO
         NEWTAG = ''
     }
 	
@@ -19,7 +19,7 @@ pipeline {
                 script {
                     sh 'mkdir GENERATE-TAG'
                     sh 'cd GENERATE-TAG'
-					sh 'pwd'
+                    sh 'pwd'
                 }
             }
         } 
