@@ -11,16 +11,9 @@ pipeline {
     }
 	
     stages {
-        stage('Generate Tag') {
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
+        stage("Cleanup Workspace"){
             steps {
-                script {
-                    sh 'mkdir GENERATE-TAG'
-                    sh 'cd GENERATE-TAG'
-                    sh 'pwd'
-                }
+                cleanWs()
             }
         } 
     }
