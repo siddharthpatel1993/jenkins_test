@@ -6,7 +6,7 @@ pipeline {
     }
 	
     environment {
-        START_PIPELINE = 'Yes'  // YES or NO
+        START_PIPELINE = 'YES'  // YES or NO
         NEWTAG = ''
     }
 	
