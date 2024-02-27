@@ -53,7 +53,7 @@ pipeline {
                     // Get the latest tag build number
                     def tagbuildnum = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 4 | sort -n -r | head -1", returnStdout: true).trim()
                     sh "echo Latest tag buildnumber: $tagbuildnum"
-                }
+            
             }
         }
 		
