@@ -11,6 +11,13 @@ pipeline {
     }
 	
     stages {
+	
+        stage("Cleanup Workspace"){
+            steps {
+                cleanWs()
+            }
+        }
+		
         stage('Generate Tag') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
@@ -25,3 +32,4 @@ pipeline {
         } 
     }
 }
+
