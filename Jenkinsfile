@@ -26,7 +26,7 @@ pipeline {
                 script {
                     sh 'mkdir GENERATE-TAG'
                     sh 'cd GENERATE-TAG'
-                    sh "git pull https://gitlab.com/meghachandsingh/ipl_project.git"
+                    sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project.git"
                 }
             }
         } 
