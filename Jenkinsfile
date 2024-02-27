@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     // Get the latest tag year
-                    sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 2 | sort -n -r | head -1", returnStdout:true).trim()
+                    def tagyear = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 2 | sort -n -r | head -1", returnStdout:true).trim()
                     sh "echo Latest Tag year: $tagyear"
                 }            
             }
