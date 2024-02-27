@@ -45,14 +45,6 @@ pipeline {
                     // Get the latest tag year
                     def tagyear = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 2 | sort -n -r | head -1", returnStdout:true).trim()
                     sh "echo Latest Tag year: $tagyear"
-
-                    // Get the latest PI number
-                    def tagpinumber = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 3 | sort -n -r | head -1", returnStdout:true).trim()
-                    sh "echo Latest tag PI number: $tagpinumber"
-
-                    // Get the latest tag build number
-                    def tagbuildnum = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 4 | sort -n -r | head -1", returnStdout: true).trim()
-                    sh "echo Latest tag buildnumber: $tagbuildnum"
             
             }
         }
