@@ -23,9 +23,6 @@ pipeline {
                git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
             }
         }
-        } 
-		
-
     }
 }
 
