@@ -11,7 +11,14 @@ pipeline {
     }
 	
     stages {
-	    stage('Generate Tag') {
+	
+        stage("Cleanup Workspace"){
+            steps {
+                cleanWs()
+            }
+        }	
+		
+        stage('Generate Tag') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
             }
@@ -19,16 +26,13 @@ pipeline {
                 script {
                     sh 'mkdir GENERATE-TAG'
                     sh 'cd GENERATE-TAG'
-                    sh 'pwd'
+                    sh "git pull https://gitlab.com/meghachandsingh/ipl_project.git"
                 }
             }
         } 
 		
-        stage("Cleanup Workspace"){
-            steps {
-                cleanWs()
-            }
-        }
+
     }
 }
+
 
