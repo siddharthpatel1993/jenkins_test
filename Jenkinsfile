@@ -18,17 +18,11 @@ pipeline {
             }
         }	
 		
-        stage('Generate Tag') {
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
+        stage("Checkout from SCM"){
             steps {
-                script {
-                    sh 'mkdir GENERATE-TAG'
-                    sh 'cd GENERATE-TAG'
-                    sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project.git"
-                }
+               git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
             }
+        }
         } 
 		
 
