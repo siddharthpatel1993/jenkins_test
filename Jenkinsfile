@@ -73,7 +73,7 @@ pipeline {
             steps {
                 script {
                   def JobParameters = [
-                      string(name: 'tagname', value: "${NEWTAG}"
+                      string(name: 'tagname', value: "${NEWTAG})"
                   ]
                 
                   def BUILD = build job: 'childJob', 
