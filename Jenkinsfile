@@ -65,6 +65,12 @@ pipeline {
             }
         }
 
+        stage('triggerChildJob') {
+            steps {
+                build job: "childJob", wait: true
+            }
+        }
+
         stage("Cleanup Workspace"){
             when {
                 expression { env.START_PIPELINE == 'YES'}
