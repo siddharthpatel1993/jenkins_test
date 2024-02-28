@@ -65,11 +65,24 @@ pipeline {
             }
         }
 
-        stage('triggerChildJob') {
+        stage('Creating tar file') {
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+
             steps {
-                build job: "childJob", wait: true
+                script {
+                  def JobParameters = [
+                      string(name: 'tagname', value: "${NEWTAG}"
+                  ]
+                
+                  def BUILD = build job: 'childJob', 
+                  parameters: JobParameters,
+                  propogate: true,
+                  wait: true
             }
         }
+      }
 
         stage("Cleanup Workspace"){
             when {
