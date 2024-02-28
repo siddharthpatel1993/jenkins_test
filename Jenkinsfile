@@ -18,15 +18,6 @@ pipeline {
     }
 	
     stages {
-	
-        stage("Cleanup Workspace"){
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
-            steps {
-                cleanWs()
-            }
-        }	
 		
         stage("Checkout from SCM"){
             when {
@@ -71,6 +62,15 @@ pipeline {
                     NEWTAG = "R.$tagyear.$tagpinumber.$tagbuildnum"
                     sh "echo New tag: ${NEWTAG}"
                 }            
+            }
+        }
+
+        stage("Cleanup Workspace"){
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+            steps {
+                cleanWs()
             }
         }
 		
