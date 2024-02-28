@@ -75,7 +75,7 @@ pipeline {
 
                   sh "echo New tag: ${NEWTAG}"
                   def JobParameters = [
-                      string(name: 'name', value: "sidd"),
+                      string(name: 'name', value: 'sidd'),
                       string(name: 'tagname', value: "${NEWTAG}")
                   ]
                 
