@@ -72,6 +72,8 @@ pipeline {
 
             steps {
                 script {
+
+                  sh "echo New tag: ${NEWTAG}"
                   def JobParameters = [
                       string(name: 'tagname', value: "${NEWTAG}")
                   ]
