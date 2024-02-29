@@ -110,6 +110,19 @@ pipeline {
       }
 
 
+        stage('Pushing the tag') {
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+
+            steps {
+                script {
+
+                  sh "pwd"
+            }
+        }
+      }
+
 
         stage("Cleanup Workspace"){
             when {
