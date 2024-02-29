@@ -110,7 +110,7 @@ pipeline {
       }
 
 
-        stage('Pushing the tag') {
+        stage('Pushing a new tag') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
             }
@@ -118,7 +118,16 @@ pipeline {
             steps {
                 script {
 
-                  sh "pwd"
+                  sh "echo New tag: ${NEWTAG}"
+                  def JobParameters = [
+                      string(name: 'name', value: 'sidd'),
+                      string(name: 'tagname', value: "${NEWTAG}")
+                  ]
+
+                  def BUILD = build job: 'child2Job',
+                  parameters: JobParameters,
+                  propogate: true,
+                  wait: true
             }
         }
       }
