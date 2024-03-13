@@ -153,7 +153,6 @@ pipeline {
             to: '1106160@kiit.ac.in',
             attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
-        }
         success {
             echo 'I will say Hello only if job is success'
         }
