@@ -15,12 +15,6 @@ pipeline {
 	
     stages {
 		
-        stage("Checkout from SCM"){
-            steps {
-               git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
-            }
-        }
-
         stage('Create Tar file') {
             steps {
                 script {
