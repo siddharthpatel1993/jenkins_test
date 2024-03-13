@@ -80,7 +80,7 @@ pipeline {
                       string(name: 'tagname', value: "${NEWTAG}")
                   ]
                 
-                  def BUILD = build job: 'childJob', 
+                  def BUILD = build job: 'childJob1', 
                   parameters: JobParameters,
                   propogate: true,
                   wait: true
@@ -102,7 +102,7 @@ pipeline {
                       string(name: 'tagname', value: "${NEWTAG}")
                   ]
 
-                  def BUILD = build job: 'child1Job',
+                  def BUILD = build job: 'childJob2',
                   parameters: JobParameters,
                   propogate: true,
                   wait: true
@@ -125,7 +125,7 @@ pipeline {
                       string(name: 'tagname', value: "${NEWTAG}")
                   ]
 
-                  def BUILD = build job: 'child2Job',
+                  def BUILD = build job: 'childJob3',
                   parameters: JobParameters,
                   propogate: true,
                   wait: true
@@ -143,21 +143,18 @@ pipeline {
             }
         }
     }
+
     post {
      always {
-        emailext attachLog: true,
-            subject: "'${currentBuild.result}'",
-            body: "Project: ${env.JOB_NAME}<br/>" +
-                "Build Number: ${env.BUILD_NUMBER}<br/>" +
-                "URL: ${env.BUILD_URL}<br/>",
-            to: 'patelsiddharthnids993@gmail.com',
-            attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+            echo 'I will get displayed always'
         }
+
         success {
-            echo 'I will say Hello only if job is success'
+            echo 'I will get displayed if job is success'
         }
+
         failure {
-            echo 'I will say Hello only if job is failure'
+            echo 'I will get displayed if job is failure'
         }
     }
 }
