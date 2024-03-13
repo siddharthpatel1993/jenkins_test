@@ -22,9 +22,6 @@ pipeline {
         }
 
         stage('Create Tar file') {
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
             steps {
                 script {
                     sh "whoami"
@@ -38,9 +35,6 @@ pipeline {
 
 
         stage("Cleanup Workspace"){
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
             steps {
                 cleanWs()
             }
