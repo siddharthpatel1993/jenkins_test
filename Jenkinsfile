@@ -144,8 +144,15 @@ pipeline {
         }
     }
     post {
-        always { 
-            echo 'I will always say Hello again!'
+     always {
+        emailext attachLog: true,
+            subject: "'${currentBuild.result}'",
+            body: "Project: ${env.JOB_NAME}<br/>" +
+                "Build Number: ${env.BUILD_NUMBER}<br/>" +
+                "URL: ${env.BUILD_URL}<br/>",
+            to: '1106160@kiit.ac.in',
+            attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+        }
         }
         success {
             echo 'I will say Hello only if job is success'
