@@ -1,0 +1,68 @@
+//added one comment
+pipeline {
+    agent {
+        node {
+            label 'jenkinsagent'
+        }      
+    }
+	
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '2', 
+                    numToKeepStr: '2'
+            )
+    }
+	
+    stages {
+		
+        stage("Checkout from SCM"){
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+            steps {
+               git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
+            }
+        }
+
+        stage('Create Tar file') {
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+            steps {
+                script {
+                    sh "whoami"
+                    sh "echo Name is $name Tag is $tagname"
+                    sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
+                    sh "tar -cvf ~/$tagname.tar index.html"
+
+                }            
+            }
+        }
+
+
+        stage("Cleanup Workspace"){
+            when {
+                expression { env.START_PIPELINE == 'YES'}
+            }
+            steps {
+                cleanWs()
+            }
+        }
+    }
+
+    post {
+     always {
+            echo 'I will get displayed always'
+        }
+
+        success {
+            echo 'I will get displayed if job is success'
+        }
+
+        failure {
+            echo 'I will get displayed if job is failure'
+        }
+    }
+}
+
+
