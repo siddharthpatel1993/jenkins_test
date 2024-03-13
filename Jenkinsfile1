@@ -16,9 +16,6 @@ pipeline {
     stages {
 		
         stage("Checkout from SCM"){
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
             steps {
                git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
             }
