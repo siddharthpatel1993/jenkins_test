@@ -111,27 +111,27 @@ pipeline {
       }
 
 
-        stage('Pushing a new tag') {
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
+        //stage('Pushing a new tag') {
+          //  when {
+           //     expression { env.START_PIPELINE == 'YES'}
+          //  }
 
-            steps {
-                script {
-
-                  sh "echo New tag: ${NEWTAG}"
-                  def JobParameters = [
-                      string(name: 'name', value: 'sidd'),
-                      string(name: 'tagname', value: "${NEWTAG}")
-                  ]
-
-                  def BUILD = build job: 'childJob3',
-                  parameters: JobParameters,
-                  propogate: true,
-                  wait: true
-            }
-        }
-      }
+         //   steps {
+           //     script {
+//
+  //                sh "echo New tag: ${NEWTAG}"
+    //              def JobParameters = [
+      //                string(name: 'name', value: 'sidd'),
+        //              string(name: 'tagname', value: "${NEWTAG}")
+          //        ]
+//
+  //                def BUILD = build job: 'childJob3',
+    //              parameters: JobParameters,
+      //            propogate: true,
+        //          wait: true
+      //      }
+    //    }
+   //   }
 
 
         stage("Cleanup Workspace"){
