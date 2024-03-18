@@ -35,7 +35,7 @@ pipeline {
             }
 
             steps {
-                build job: "Test_slow_track",propagate: false,wait: true,
+                build job: "Test_slow_track",propagate: true,wait: true,
                 parameters: [
                  [$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
                  [$class: 'StringParameterValue', name: 'JOB_TO_RUN', value: "SI_fc_slow_track"],

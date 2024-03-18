@@ -13,7 +13,7 @@ pipeline {
             )
     }
 
-Stages{
+stages{
   stage('Start the test job') {
             steps {
                 script {
