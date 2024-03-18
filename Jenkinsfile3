@@ -13,7 +13,8 @@ pipeline {
             )
     }
 
-stage('Start the test job') {
+Stages{
+  stage('Start the test job') {
             steps {
                 script {
                     if (env.TRACK_RESULT_NAME == 'QA_Track') {
@@ -27,4 +28,5 @@ stage('Start the test job') {
 		            }
             }
         }
+    }
 }	
