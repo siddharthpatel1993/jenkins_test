@@ -17,8 +17,8 @@ stages{
   stage('Start the test job') {
             steps {
                 script {
-                   sh "echo $QA_Track"
-                   sh "echo $TRACK_TYPE"
+                   sh "echo TRACK_RESULT_ID"
+                   sh "echo TRACK_RESULT_NAME"
             }
         }
     }
