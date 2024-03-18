@@ -18,7 +18,7 @@ pipeline {
         stage('Create Tar file') {
             steps {
                 script {
-                    sh "tar -xvf /home/jenkins/${env.tagname}.tar -C /tmp/"
+                    sh "tar -xvf /home/jenkins/${params.tagname}.tar -C /tmp/"
                     sh "echo Tag is ${params.tagname}"
 
                 }            
