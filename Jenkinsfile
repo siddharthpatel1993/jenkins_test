@@ -151,8 +151,6 @@ pipeline {
 
               }                
 
-         }
-
         stage("Cleanup Workspace"){
             when {
                 expression { env.START_PIPELINE == 'YES'}
@@ -176,7 +174,6 @@ pipeline {
             echo 'I will get displayed if job is failure'
         }
     }
-}
 }
 
 
