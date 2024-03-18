@@ -17,16 +17,10 @@ stages{
   stage('Start the test job') {
             steps {
                 script {
-                    if (env.TRACK_RESULT_NAME == 'QA_Track') {
-                        env.TRACK_TYPE = 'slow-track'
-                    }
-                    default_parameters = [
-        [$class: 'StringParameterValue', name: 'TRACK_TYPE', value: "${TRACK_TYPE}"],
-        [$class: 'StringParameterValue', name: 'TRACK_RESULT_NAME', value: "${TRACK_RESULT_NAME}"],
-        [$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "${TRACK_RESULT_ID}"],
-                    ]
-		            }
+                   sh "echo $QA_Track"
+                   sh "echo $TRACK_TYPE"
             }
         }
     }
+}
 }	
