@@ -17,8 +17,8 @@ stages{
   stage('Start the test job') {
             steps {
                 script {
-                   sh "echo ${env.TRACK_RESULT_ID}"
-                   sh "echo ${env.TRACK_RESULT_NAME}"
+                   sh "echo ${params.TRACK_RESULT_ID}"
+                   sh "echo ${params.TRACK_RESULT_NAME}"
             }
         }
     }
