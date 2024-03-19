@@ -25,9 +25,9 @@ pipeline {
             steps {
                 script {
                     sh "whoami"
-                    sh "echo Tag is $tagname"
+                    sh "echo Tag is ${params.tagname}"
                     sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
-                    sh "tar -cvf ~/$tagname.tar index.html"
+                    sh "tar -cvf ~/${params.tagname}.tar index.html"
 
                 }            
             }
