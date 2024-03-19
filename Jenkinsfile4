@@ -14,12 +14,11 @@ pipeline {
     }
 
 stages{
-  stage('Deploy') {
+  stage('Start the test job') {
             steps {
                 script {
-                   sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
-                   sh "git tag -a ${params.tagname} -m 'Automated tag creation'"
-                   sh "git push https://'meghachandsingh:0rangeB!ood'@gitlab.com/meghachandsingh/ipl_project $${params.tagname}"
+                   sh "echo ${params.TRACK_RESULT_ID}"
+                   sh "echo ${params.TRACK_RESULT_NAME}"
             }
         }
     }
