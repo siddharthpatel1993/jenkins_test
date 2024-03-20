@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script {
 
-                  sh "echo New tag: ${NEWTAG}"
+                  sh "echo New"
                   //def JobParameters = [
                       //string(name: 'name', value: 'sidd'),
                       //string(name: 'tagname', value: "${NEWTAG}")
