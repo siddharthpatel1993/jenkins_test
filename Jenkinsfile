@@ -12,7 +12,7 @@ pipeline {
         Blackduck_scan = 'YES' // YES or NO
         ZAP_scan = 'YES' // YES or NO
 
-        NEWTAG = 'Sachin Tendulkar'
+        Scan_value1 = 'Fortify Scan'
     }
 	
     options {
@@ -41,7 +41,7 @@ pipeline {
                 script {
                   def JobParameters = [
                       string(name: 'name', value: 'sidd'),
-                      string(name: 'tagname', value: "${NEWTAG}")
+                      string(name: 'tagname', value: "${Scan_value1}")
                   ]
 
                   def BUILD = build job: 'Fortify_Scan_Job',
