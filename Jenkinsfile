@@ -7,9 +7,10 @@ pipeline {
     }
 	
     environment {
+        START_PIPELINE = 'YES' // YES or NO
         Fortify_scan = 'YES' // YES or NO
-        START_PIPELINE = 'YES'  // YES or NO
-        NEWTAG = ''
+        Blackduck_scan = 'YES' // YES or NO
+        ZAP_scan = 'YES' // YES or NO
     }
 	
     options {
@@ -43,7 +44,7 @@ pipeline {
 
         stage('Blackduck Scan') {
             when {
-                expression { env.START_PIPELINE == 'YES'}
+                expression { env.Blackduck_scan == 'NO'}
             }
 
             steps {
@@ -65,7 +66,7 @@ pipeline {
 
         stage('ZAP Scan') {
             when {
-                expression { env.START_PIPELINE == 'YES'}
+                expression { env.ZAP_scan == 'NO'}
             }
 
             steps {
