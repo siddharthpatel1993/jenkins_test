@@ -40,8 +40,10 @@ pipeline {
             steps {
                 script {
                   def JobParameters = [
-                      string(name: 'name', value: 'sidd'),
-                      string(name: 'tagname', value: "${Scan_value1}")
+                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
+                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value1}"],
+                      //string(name: 'name', value: 'sidd'),
+                      //string(name: 'tagname', value: "${Scan_value1}")
                   ]
 
                   def BUILD = build job: 'Fortify_Scan_Job',
