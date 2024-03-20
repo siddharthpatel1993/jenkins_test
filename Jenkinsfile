@@ -35,7 +35,7 @@ pipeline {
 
         stage('Fortify Scan') {
             when {
-                expression { env.Fortify_scan == 'NO'}
+                expression { env.Fortify_scan == 'YES'}
             }
             steps {
                 script {
