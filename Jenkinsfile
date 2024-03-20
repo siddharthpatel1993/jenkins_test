@@ -7,7 +7,7 @@ pipeline {
     }
 	
     environment {
-        Fortify_scan = 'NO' // YES or NO
+        Fortify_scan = 'YES' // YES or NO
         Blackduck_scan = 'NO' // YES or NO
         ZAP_scan = 'NO' // YES or NO
         START_Deploy = 'NO' // YES or NO
@@ -100,7 +100,7 @@ pipeline {
         //}
       //}
 
-        stage('Job Starts here') {
+        stage('Deploy') {
             when {
                 expression { env.START_Deploy == 'YES'}
             }
