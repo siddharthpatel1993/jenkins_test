@@ -9,8 +9,8 @@ pipeline {
     environment {
         Fortify_scan = 'YES' // YES or NO
         Blackduck_scan = 'YES' // YES or NO
-        ZAP_scan = 'NO' // YES or NO
-        START_Deploy = 'NO' // YES or NO
+        ZAP_scan = 'YES' // YES or NO
+        START_Deploy = 'YES' // YES or NO
 
         Scan_value1 = 'Fortify Scan'
         Scan_value2 = 'Blackduck Scan'
