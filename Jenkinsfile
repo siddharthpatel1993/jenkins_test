@@ -47,17 +47,6 @@ pipeline {
                   }
                               }
            
-            steps {
-                script {
-                  def JobParameters = [
-                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
-                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value1}"],
-                      //string(name: 'name', value: 'sidd'),
-                      //string(name: 'tagname', value: "${Scan_value1}")
-                  ]
-
-                }            
-            }
 
         stage('Blackduck Scan') {
             when {
