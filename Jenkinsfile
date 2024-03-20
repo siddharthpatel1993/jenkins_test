@@ -29,44 +29,18 @@ pipeline {
             }
         }
 
-        stage('Tag Calulation') {
+        stage('Fortify Scan') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
             }
             steps {
                 script {
-                    // Get the latest tag year
-                    def tagyear = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 2 | sort -n -r | head -1", returnStdout:true).trim()
-                    sh "echo Latest Tag year: $tagyear"
-
-                    // Get the latest PI number
-                    def tagpinumber = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 3 | sort -n -r | head -1", returnStdout:true).trim()
-                    sh "echo Latest tag PI number: $tagpinumber"
-
-                    // Get the latest tag build number
-                    def tagbuildnum = sh(script: "git describe --tags --abbrev=0 | grep -o 'R.*' | cut -d'.' -f 4 | sort -n -r | head -1", returnStdout: true).trim()
-                    sh "echo Latest tag buildnumber: $tagbuildnum"
-
-                    // Remove leading zeros from the build number
-                    tagbuildnum = sh(script: "expr $tagbuildnum + 0", returnStdout: true).trim()
-                    sh "echo $tagbuildnum"
-
-                    // Increment build number
-                    tagbuildnum = sh(script: "expr $tagbuildnum + 1", returnStdout: true).trim()
-                    sh "echo $tagbuildnum"
-
-                    // Prepare the 4 digit build number format
-                    tagbuildnum = sh(script: "printf '%04i' $tagbuildnum", returnStdout: true).trim()
-                    sh "echo $tagbuildnum"
-
-                    // New tag for this latest build
-                    NEWTAG = "R.$tagyear.$tagpinumber.$tagbuildnum"
-                    sh "echo New tag: ${NEWTAG}"
+                    sh "echo Scan"
                 }            
             }
         }
 
-        stage('Creating tar file') {
+        stage('Blackduck Scan') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
             }
@@ -74,21 +48,21 @@ pipeline {
             steps {
                 script {
 
-                  sh "echo New tag: ${NEWTAG}"
-                  def JobParameters = [
-                      string(name: 'name', value: 'sidd'),
-                      string(name: 'tagname', value: "${NEWTAG}")
-                  ]
+                  sh "echo scan"
+                  //def JobParameters = [
+                      //string(name: 'name', value: 'sidd'),
+                      //string(name: 'tagname', value: "${NEWTAG}")
+                  //]
                 
-                  def BUILD = build job: 'childJob1', 
-                  parameters: JobParameters,
-                  propogate: true,
-                  wait: true
+                  //def BUILD = build job: 'childJob1', 
+                  //parameters: JobParameters,
+                  //propogate: true,
+                  //wait: true
             }
         }
       }
 
-        stage('Deplying the tar file') {
+        stage('ZAP Scan') {
             when {
                 expression { env.START_PIPELINE == 'YES'}
             }
@@ -97,21 +71,21 @@ pipeline {
                 script {
 
                   sh "echo New tag: ${NEWTAG}"
-                  def JobParameters = [
-                      string(name: 'name', value: 'sidd'),
-                      string(name: 'tagname', value: "${NEWTAG}")
-                  ]
+                  //def JobParameters = [
+                      //string(name: 'name', value: 'sidd'),
+                      //string(name: 'tagname', value: "${NEWTAG}")
+                  //]
 
-                  def BUILD = build job: 'childJob2',
-                  parameters: JobParameters,
-                  propogate: true,
-                  wait: true
+                  //def BUILD = build job: 'childJob2',
+                  //parameters: JobParameters,
+                  //propogate: true,
+                  //wait: true
             }
         }
       }
 
 
-        //stage('Pushing a new tag') {
+        //stage('Commented section') {
             //when {
                 //expression { env.START_PIPELINE == 'YES'}
             //}
@@ -133,23 +107,23 @@ pipeline {
         //}
       //}
 
-        stage('Job Starts here') {
-            when {
-                expression { env.START_PIPELINE == 'YES'}
-            }
+        //stage('Job Starts here') {
+            //when {
+                //expression { env.START_PIPELINE == 'YES'}
+            //}
 
-            steps {
-                build job: "Test_slow_track",propagate: true,wait: true,
-                parameters: [
-                 [$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
-                 [$class: 'StringParameterValue', name: 'JOB_TO_RUN', value: "SI_fc_slow_track"],
-                 [$class: 'StringParameterValue', name: 'TRACK_RESULT_NAME', value: "QA_Track"],
-                 [$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "BUILD_NUMBER"],
-                 [$class: 'StringParameterValue', name: 'EDGE_TAGS', value: "dev,qa"],
-                            ]
-                  }
+            //steps {
+                //build job: "Test_slow_track",propagate: true,wait: true,
+                //parameters: [
+                 //[$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
+                 //[$class: 'StringParameterValue', name: 'JOB_TO_RUN', value: "SI_fc_slow_track"],
+                 //[$class: 'StringParameterValue', name: 'TRACK_RESULT_NAME', value: "QA_Track"],
+                 //[$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "BUILD_NUMBER"],
+                 //[$class: 'StringParameterValue', name: 'EDGE_TAGS', value: "dev,qa"],
+                            //]
+                  //}
 
-              }                
+              //}                
 
         stage("Cleanup Workspace"){
             when {
