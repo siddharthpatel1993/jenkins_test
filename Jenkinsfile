@@ -37,6 +37,16 @@ pipeline {
             when {
                 expression { env.Fortify_scan == 'YES'}
             }
+
+            steps {
+                build job: "Fortify_Scan_Job",propagate: true,wait: true,
+                parameters: [
+                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
+                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value1}"], 
+                            ]
+                  }
+                              }
+           
             steps {
                 script {
                   def JobParameters = [
@@ -46,13 +56,8 @@ pipeline {
                       //string(name: 'tagname', value: "${Scan_value1}")
                   ]
 
-                  def BUILD = build job: 'Fortify_Scan_Job',
-                  parameters: JobParameters,
-                  propogate: true,
-                  wait: true
                 }            
             }
-        }
 
         stage('Blackduck Scan') {
             when {
