@@ -14,12 +14,14 @@ pipeline {
     }
 
 stages{
-  stage('Deploy') {
+  stage('ZAP Scan') {
             steps {
                 script {
-                   sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
-                   sh "git tag -a ${params.tagname} -m 'Automated tag creation'"
-                   sh "git push https://'meghachandsingh:0rangeB!ood'@gitlab.com/meghachandsingh/ipl_project ${params.tagname}"
+                    sh "echo Name is ${params.name}"
+                    sh "echo Tag is ${params.tagname}"
+                   //sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
+                   //sh "git tag -a ${params.tagname} -m 'Automated tag creation'"
+                   //sh "git push https://'meghachandsingh:0rangeB!ood'@gitlab.com/meghachandsingh/ipl_project ${params.tagname}"
             }
         }
     }

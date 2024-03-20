@@ -15,11 +15,13 @@ pipeline {
 	
     stages {
 		
-        stage('Create Tar file') {
+        stage('Blackduck Scan') {
             steps {
                 script {
-                    sh "tar -xvf /home/jenkins/${params.tagname}.tar -C /tmp/"
+                    sh "echo Name is ${params.name}"
                     sh "echo Tag is ${params.tagname}"
+                    //sh "tar -xvf /home/jenkins/${params.tagname}.tar -C /tmp/"
+                    //sh "echo Tag is ${params.tagname}"
 
                 }            
             }

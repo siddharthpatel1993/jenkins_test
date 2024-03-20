@@ -14,7 +14,7 @@ pipeline {
     }
 
 stages{
-  stage('Start the test job') {
+  stage('Deploy') {
             steps {
                 script {
                    sh "echo ${params.TRACK_RESULT_ID}"

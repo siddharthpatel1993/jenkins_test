@@ -7,12 +7,14 @@ pipeline {
     }
 	
     environment {
-        START_PIPELINE = 'YES' // YES or NO
-        Fortify_scan = 'YES' // YES or NO
-        Blackduck_scan = 'YES' // YES or NO
-        ZAP_scan = 'YES' // YES or NO
+        Fortify_scan = 'NO' // YES or NO
+        Blackduck_scan = 'NO' // YES or NO
+        ZAP_scan = 'NO' // YES or NO
+        START_Deploy = 'NO' // YES or NO
 
         Scan_value1 = 'Fortify Scan'
+        Scan_value2 = 'Blackduck Scan'
+        Scan_value3 = 'ZAP Scan'
     }
 	
     options {
@@ -50,47 +52,33 @@ pipeline {
 
         stage('Blackduck Scan') {
             when {
-                expression { env.Blackduck_scan == 'NO'}
+                expression { env.Blackduck_scan == 'YES'}
             }
 
             steps {
-                script {
+                build job: "Blackduck_Scan_Job",propagate: true,wait: true,
+                parameters: [
+                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
+                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value2}"],
+                            ]
+                  }
+                              }
 
-                  sh "echo scan"
-                  //def JobParameters = [
-                      //string(name: 'name', value: 'sidd'),
-                      //string(name: 'tagname', value: "${NEWTAG}")
-                  //]
-                
-                  //def BUILD = build job: 'childJob1', 
-                  //parameters: JobParameters,
-                  //propogate: true,
-                  //wait: true
-            }
-        }
-      }
 
         stage('ZAP Scan') {
             when {
-                expression { env.ZAP_scan == 'NO'}
+                expression { env.ZAP_scan == 'YES'}
             }
 
             steps {
-                script {
+                build job: "zap_Scan_Job",propagate: true,wait: true,
+                parameters: [
+                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
+                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value3}"],
+                            ]
+                  }
+                              }
 
-                  sh "echo New"
-                  //def JobParameters = [
-                      //string(name: 'name', value: 'sidd'),
-                      //string(name: 'tagname', value: "${NEWTAG}")
-                  //]
-
-                  //def BUILD = build job: 'childJob2',
-                  //parameters: JobParameters,
-                  //propogate: true,
-                  //wait: true
-            }
-        }
-      }
 
 
         //stage('Commented section') {
@@ -115,37 +103,36 @@ pipeline {
         //}
       //}
 
-        //stage('Job Starts here') {
-            //when {
-                //expression { env.START_PIPELINE == 'YES'}
-            //}
-
-            //steps {
-                //build job: "Test_slow_track",propagate: true,wait: true,
-                //parameters: [
-                 //[$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
-                 //[$class: 'StringParameterValue', name: 'JOB_TO_RUN', value: "SI_fc_slow_track"],
-                 //[$class: 'StringParameterValue', name: 'TRACK_RESULT_NAME', value: "QA_Track"],
-                 //[$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "BUILD_NUMBER"],
-                 //[$class: 'StringParameterValue', name: 'EDGE_TAGS', value: "dev,qa"],
-                            //]
-                  //}
-
-              //}                
-
-        stage("Cleanup Workspace"){
+        stage('Job Starts here') {
             when {
-                expression { env.START_PIPELINE == 'YES'}
+                expression { env.START_Deploy == 'YES'}
             }
+
             steps {
-                cleanWs()
-            }
-        }
+                build job: "Deployment",propagate: true,wait: true,
+                parameters: [
+                 [$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
+                 [$class: 'StringParameterValue', name: 'JOB_TO_RUN', value: "SI_fc_slow_track"],
+                 [$class: 'StringParameterValue', name: 'TRACK_RESULT_NAME', value: "QA_Track"],
+                 [$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "BUILD_NUMBER"],
+                 [$class: 'StringParameterValue', name: 'EDGE_TAGS', value: "dev,qa"],
+                            ]
+                  }
+
+              }                
+
+        //stage("Cleanup Workspace"){
+            //steps {
+                //cleanWs()
+            //}
+        //}
     }
 
     post {
      always {
-            echo 'I will get displayed always'
+            steps {
+               cleanWs()
+                  }
         }
 
         success {
