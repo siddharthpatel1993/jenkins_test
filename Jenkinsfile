@@ -11,6 +11,8 @@ pipeline {
         Fortify_scan = 'YES' // YES or NO
         Blackduck_scan = 'YES' // YES or NO
         ZAP_scan = 'YES' // YES or NO
+
+        NEWTAG = 'Sachin Tendulkar'
     }
 	
     options {
@@ -37,7 +39,15 @@ pipeline {
             }
             steps {
                 script {
-                    sh "echo Scan"
+                  def JobParameters = [
+                      string(name: 'name', value: 'sidd'),
+                      string(name: 'tagname', value: "${NEWTAG}")
+                  ]
+
+                  def BUILD = build job: 'Fortify_Scan_Job',
+                  parameters: JobParameters,
+                  propogate: true,
+                  wait: true
                 }            
             }
         }

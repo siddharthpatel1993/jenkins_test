@@ -24,10 +24,10 @@ pipeline {
         stage('Create Tar file') {
             steps {
                 script {
-                    sh "whoami"
+                    sh "echo Name is $name"
                     sh "echo Tag is ${params.tagname}"
-                    sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
-                    sh "tar -cvf ~/${params.tagname}.tar index.html"
+                    //sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
+                    //sh "tar -cvf ~/${params.tagname}.tar index.html"
 
                 }            
             }
