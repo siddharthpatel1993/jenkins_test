@@ -127,9 +127,8 @@ pipeline {
 
     post {
      always {
-            steps {
-               cleanWs()
-                  }
+           echo "Clean after the job is completed"
+           cleanWs()
         }
 
         success {
