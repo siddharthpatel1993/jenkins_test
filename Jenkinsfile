@@ -7,6 +7,7 @@ pipeline {
     }
 	
     environment {
+        Fortify_scan = 'YES' // YES or NO
         START_PIPELINE = 'YES'  // YES or NO
         NEWTAG = ''
     }
@@ -31,7 +32,7 @@ pipeline {
 
         stage('Fortify Scan') {
             when {
-                expression { env.START_PIPELINE == 'YES'}
+                expression { env.Fortify_scan == 'YES'}
             }
             steps {
                 script {
