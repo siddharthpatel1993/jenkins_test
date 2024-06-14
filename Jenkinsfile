@@ -48,11 +48,13 @@ pipeline {
             }
 
             steps {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 build job: "Blackduck_Scan_Job",propagate: true,wait: true,
                 parameters: [
                       [$class: 'StringParameterValue', name: 'name', value: "sidd"],
                       [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value2}"],
                             ]
+              }
                   }
         }
 
@@ -62,11 +64,13 @@ pipeline {
             }
 
             steps {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 build job: "zap_Scan_Job",propagate: true,wait: true,
                 parameters: [
                       [$class: 'StringParameterValue', name: 'name', value: "sidd"],
                       [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value3}"],
                             ]
+              }
             }
         }
 
@@ -76,6 +80,7 @@ pipeline {
             }
 
             steps {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 build job: "Deployment",propagate: true,wait: true,
                 parameters: [
                  [$class: 'StringParameterValue', name: 'DEVICE_BUILD_VERSION', value: "VERSION_TO_TEST"],
@@ -84,6 +89,7 @@ pipeline {
                  [$class: 'StringParameterValue', name: 'TRACK_RESULT_ID', value: "BUILD_NUMBER"],
                  [$class: 'StringParameterValue', name: 'EDGE_TAGS', value: "dev,qa"],
                             ]
+              }
             }
 
         }
