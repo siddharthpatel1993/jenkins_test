@@ -40,7 +40,21 @@ pipeline {
                             ]
               }
             }
-        }       
+        }
+
+        stage('Blackduck Scan') {
+            when {
+                expression { env.Blackduck_scan == 'YES'}
+            }
+
+            steps {
+                build job: "Blackduck_Scan_Job",propagate: true,wait: true,
+                parameters: [
+                      [$class: 'StringParameterValue', name: 'name', value: "sidd"],
+                      [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value2}"],
+                            ]
+                  }
+        }
     }
 
     post {
