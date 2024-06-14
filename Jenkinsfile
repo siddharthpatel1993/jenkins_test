@@ -60,7 +60,7 @@ pipeline {
 
         stage('ZAP Scan') {
             when {
-                expression { env.ZAP_scan == 'NO'}
+                expression { env.ZAP_scan == 'YES'}
             }
 
             steps {
