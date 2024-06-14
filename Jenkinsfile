@@ -32,15 +32,16 @@ pipeline {
             }
 
             steps {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {  
                 build job: "Fortify_Scan_Job",propagate: true,wait: true,
                 parameters: [
                       [$class: 'StringParameterValue', name: 'name', value: "sidd"],
                       [$class: 'StringParameterValue', name: 'tagname', value: "${Scan_value1}"],
                             ]
-                  }
+              }
             }
-    }       
-
+        }       
+    }
 
     post {
      always {
