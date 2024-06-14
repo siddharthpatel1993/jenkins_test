@@ -1,0 +1,26 @@
+//added one comment
+pipeline {
+    agent {
+        node {
+            label 'jenkinsagent'
+        }      
+    }
+	
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '2', 
+                    numToKeepStr: '2'
+            )
+    }
+
+stages{
+  stage('Deploy') {
+            steps {
+                script {
+                   sh "echo ${params.TRACK_RESULT_ID}"
+                   sh "echo ${params.TRACK_RESULT_NAME}"
+            }
+        }
+    }
+}
+}	

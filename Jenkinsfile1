@@ -1,0 +1,59 @@
+//added one comment
+pipeline {
+    agent {
+        node {
+            label 'jenkinsagent'
+        }      
+    }
+	
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '2', 
+                    numToKeepStr: '2'
+            )
+    }
+	
+    stages {
+		
+        stage("Fortify Scan"){
+            steps {
+               git branch: 'master', credentialsId: 'meghachandsingh', url: 'https://gitlab.com/meghachandsingh/ipl_project'
+            }
+        }
+
+        stage('Create Tar file') {
+            steps {
+                script {
+                    sh "echo Name is ${params.name}"
+                    sh "echo Tag is ${params.tagname}"
+                    //sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
+                    //sh "tar -cvf ~/${params.tagname}.tar index.html"
+
+                }            
+            }
+        }
+
+
+        stage("Cleanup Workspace"){
+            steps {
+                cleanWs()
+            }
+        }
+    }
+
+    post {
+     always {
+            echo 'I will get displayed always'
+        }
+
+        success {
+            echo 'I will get displayed if job is success'
+        }
+
+        failure {
+            echo 'I will get displayed if job is failure'
+        }
+    }
+}
+
+

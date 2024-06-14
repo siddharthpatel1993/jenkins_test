@@ -1,0 +1,29 @@
+//added one comment
+pipeline {
+    agent {
+        node {
+            label 'jenkinsagent'
+        }      
+    }
+	
+    options {
+        buildDiscarder logRotator( 
+                    daysToKeepStr: '2', 
+                    numToKeepStr: '2'
+            )
+    }
+
+stages{
+  stage('ZAP Scan') {
+            steps {
+                script {
+                    sh "echo Name is ${params.name}"
+                    sh "echo Tag is ${params.tagname}"
+                   //sh "git init && git pull https://gitlab.com/meghachandsingh/ipl_project"
+                   //sh "git tag -a ${params.tagname} -m 'Automated tag creation'"
+                   //sh "git push https://'meghachandsingh:0rangeB!ood'@gitlab.com/meghachandsingh/ipl_project ${params.tagname}"
+            }
+        }
+    }
+}
+}	
